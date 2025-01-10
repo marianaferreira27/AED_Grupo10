@@ -21,11 +21,15 @@ def renderWindow(appWidth, appHeight, appTitle):
     app.resizable(False, False)
 
 def home():
-    # Primeiro, destrua qualquer frame existente
+    """
+    Função com o layout da página inicial da aplicação
+    """
+
+    # Primeiro, destroi qualquer frame existente
     for widget in app.winfo_children():
         widget.destroy()
 
-    # Renderize a tela inicial
+    # Renderiza a tela inicial
     labelBemVindo = customtkinter. CTkLabel(app, text="Bem-vindo ao", fg_color="transparent",
     text_color="white", font= ("Inter", 35, "bold"))
     labelBemVindo.place(x=625, y=200)
@@ -47,8 +51,10 @@ def home():
     btnIniciarSemConta.place(x=675, y=540)
 
 def criar_conta():
+    """
+    Função com o frame da parte de criar conta para os utilizadores
+    """
 
-   # FRAME
     frameGerir = customtkinter.CTkFrame(app, width = 1500, height = 700, fg_color="#5D0FE5")
     frameGerir.place(x=0, y=0) 
    
@@ -104,6 +110,10 @@ def criar_conta():
     btnVoltar.place(x=590, y=600)
 
 def conta_criada():
+    """
+    Faz com que, ao clicar no "Ok" da messagebox, a frame de criar a conta seja destruida (ou substituida) pela frame home.
+    Ao ser clicado, vai para a funcao "home()"
+    """
 
     msg = CTkMessagebox.CTkMessagebox(title="Aviso!", message="A conta foi criada com sucesso!", icon="check", option_1="Ok")
     
@@ -111,6 +121,9 @@ def conta_criada():
         home()
 
 def iniciar_sessao():
+    """
+    Função com o frame da parte de iniciar sessão, tanto para admins como para utilizadores
+    """
 
     frameIniciarSessao = customtkinter.CTkFrame(app, width = 1500, height = 700, fg_color="#5D0FE5")
     frameIniciarSessao.place(x=0, y=0) 
@@ -143,14 +156,24 @@ def iniciar_sessao():
 
 
 def abrir_sem_login():
+    """
+    Ao clicar no botão de "Entrar sem conta" a aplicação com a frame "home" é destruída, e abre o ficheiro users_sem_login.py.
+    Esse ficheiro é exclusivo para os usuários sem login/conta na aplicação, e, por conta disso, têm funcionalidades reduzidas.
+    """
     app.destroy()
     os.system("python users_sem_login.py")
 
 def abrir_admin():
+    """
+    Ao iniciar sessao com as credenciais de admins, abre um ficheiro específico apenas disponiveis para os administradores da aplicação.
+    """
     app.destroy()
     os.system("python admin.py")
 
 def abrir_com_login():
+    """
+    Abre uma página igual à "abrir_sem_login.py", porem com todas as funcionalidades e com o sistema de notificações, com listas, etc.
+    """
     app.destroy()
     os.system("python users_login.py")
 
