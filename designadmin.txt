@@ -1,0 +1,18 @@
+  frameAbriradmin = customtkinter.CTkFrame(app, width = 1500, height = 700, fg_color="#5D0FE5")
+    frameAbriradmin.place(x=0, y=0) 
+    btnFrontImage= customtkinter.CTkButton(frameAbriradmin, text="Front-image",width=200, height=40, fg_color="white", text_color="#39098B", corner_radius=5, font= ("Inter", 15)  )
+    btnFrontImage.place(x=30,y=500)
+    btnFilme=customtkinter.CTkButton(frameAbriradmin, text="Filmes",width=200, height=40, fg_color="white", text_color="#39098B", corner_radius=5, font= ("Inter", 15)  )
+    btnFilme.place(x=30, y=550)
+    btnPerfil=customtkinter.CTkButton(frameAbriradmin, text="Perfil",  width=200, height=40, fg_color="white", text_color="#39098B", corner_radius=5, font= ("Inter", 15)  )
+    btnPerfil.place(x=30, y=600)
+    btnAddfilm=customtkinter.CTkButton(frameAbriradmin, text="Adicionar Filme",  width=200, height=40, fg_color="white", text_color="#39098B", corner_radius=5, font= ("Inter", 15)  )
+    btnAddfilm.place(x=1270, y=20)
+    labelAdmin= customtkinter.CTkLabel(frameAbriradmin,  text="BackOffice Bigscreen", fg_color="transparent",         
+    text_color="white", font= ("Inter", 35, "bold"))
+    labelAdmin.place(x=600, y=20)
+    FramePredefenido=customtkinter.CTkFrame(frameAbriradmin, width=1210, height=550, fg_color= "white")
+    FramePredefenido.place(x=260, y=90)
+    # canvas=customtkinter.CTkCanvas(frameAbriradmin, width=10, height=1200, bg="white", highlightthickness=0)
+    # canvas.place(x=470, y=0)
+ 
