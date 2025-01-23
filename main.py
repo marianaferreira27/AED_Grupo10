@@ -150,9 +150,29 @@ def iniciar_sessao():
     width=140, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font= ("Inter", 15))
     btnVoltar.place(x=590, y=450)
 
-    btnIniciarSessao = customtkinter. CTkButton(app, text="Iniciar Sessão", command=abrir_com_login,
+    btnIniciarSessao = customtkinter. CTkButton(app, text="Iniciar Sessão", command="",
     width=140, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font= ("Inter", 15))
     btnIniciarSessao.place(x=750, y=450)
+
+    def handle_login():
+        email = TxtEmail.get()
+        password = TxtPalavraPasse.get()
+
+        credentials = {
+            "admin": "123", 
+        }
+
+        if email in credentials and credentials[email] == password:
+            if email == "admin": 
+                app.destroy()
+                os.system("python admin.py") 
+            else: 
+                app.destroy()
+                os.system("python admin.py") 
+        else:
+            msg = CTkMessagebox.CTkMessagebox(title="Aviso!", message="A conta não existe!", icon="error", option_1="Ok") 
+
+    btnIniciarSessao.configure(command=handle_login)
 
 
 def abrir_sem_login():
@@ -163,12 +183,14 @@ def abrir_sem_login():
     app.destroy()
     os.system("python users_sem_login.py")
 
+"""
 def abrir_admin():
-    """
+    
     Ao iniciar sessao com as credenciais de admins, abre um ficheiro específico apenas disponiveis para os administradores da aplicação.
-    """
+    
     app.destroy()
     os.system("python admin.py")
+"""
 
 def abrir_com_login():
     """
