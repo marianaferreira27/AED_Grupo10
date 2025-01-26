@@ -4,7 +4,7 @@ import CTkMessagebox
 import os
 
 # Caminho para o arquivo onde os dados serão salvos
-arquivo_usuarios = "usuarios.txt"
+arquivo_usuarios = "files\utilizadores.txt"
 
 def renderWindow(appWidth, appHeight, appTitle):
     """
@@ -19,6 +19,7 @@ def renderWindow(appWidth, appHeight, appTitle):
     y= (screenHeight/2) - (appHeight/2)
     app.geometry(f'{appWidth}x{appHeight}+{int(x)}+{int(y)}')
     app.resizable(False, False)
+
 
 def gerenciar_filmes():
     """
