@@ -1,7 +1,8 @@
 import customtkinter
-from PIL import Image
+from PIL import Image, ImageTk
 import CTkMessagebox
 import os
+
 
 # Caminho para o arquivo onde os dados serão salvos
 arquivo_usuarios = ".\\files\\utilizadores.txt"
@@ -153,6 +154,60 @@ def iniciar_sessao():
     Função com o frame da parte de iniciar sessão, tanto para admins como para utilizadores.
     """
 
+    def exibir_admin_frame():
+        """
+        Exibe o frame para o administrador após login bem-sucedido.
+        """
+        for widget in app.winfo_children():
+            widget.destroy()
+
+        # Criação do frame para o administrador
+        frameAdmin = customtkinter.CTkFrame(app, width=1500, height=700, fg_color="#5D0FE5")
+        frameAdmin.place(x=0, y=0)
+
+        labelAdmin = customtkinter.CTkLabel(frameAdmin, text="Painel do Administrador", fg_color="transparent",
+                                            text_color="white", font=("Inter", 30, "bold"))
+        labelAdmin.place(x=640, y=90)
+
+        btnGerenciarFilmes = customtkinter.CTkButton(frameAdmin, text="Gerenciar Filmes", command=gerenciar_filmes,
+                                                     width=200, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font=("Inter", 15))
+        btnGerenciarFilmes.place(x=590, y=200)
+
+        btnGerenciarUtilizadores = customtkinter.CTkButton(frameAdmin, text="Gerenciar Utilizadores", command=gerenciar_utilizadores,
+                                                           width=200, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font=("Inter", 15))
+        btnGerenciarUtilizadores.place(x=590, y=300)
+
+        btnGerenciarCategorias = customtkinter.CTkButton(frameAdmin, text="Gerenciar Categorias", command=gerenciar_categorias,
+                                                         width=200, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font=("Inter", 15))
+        btnGerenciarCategorias.place(x=590, y=400)
+
+        btnSair = customtkinter.CTkButton(frameAdmin, text="Sair", command=home,
+                                          width=200, height=50, fg_color="white", text_color="#FF0000", corner_radius=11, font=("Inter", 15))
+        btnSair.place(x=590, y=500)
+
+    def exibir_user_frame():
+        """
+        Exibe o frame para usuários após login bem-sucedido.
+        """
+        for widget in app.winfo_children():
+            widget.destroy()
+
+        # Criação do frame para o usuário
+        frameUser = customtkinter.CTkFrame(app, width=1500, height=700, fg_color="#39098B")
+        frameUser.place(x=0, y=0)
+
+        labelUser = customtkinter.CTkLabel(frameUser, text="Bem-vindo ao Sistema!", fg_color="transparent",
+                                           text_color="white", font=("Inter", 30, "bold"))
+        labelUser.place(x=640, y=90)
+
+        btnExplorar = customtkinter.CTkButton(frameUser, text="Explorar Filmes", command=explorar_filmes,
+                                              width=200, height=50, fg_color="white", text_color="#5D0FE5", corner_radius=11, font=("Inter", 15))
+        btnExplorar.place(x=590, y=200)
+
+        btnSair = customtkinter.CTkButton(frameUser, text="Sair", command=home,
+                                          width=200, height=50, fg_color="white", text_color="#FF0000", corner_radius=11, font=("Inter", 15))
+        btnSair.place(x=590, y=300)
+
     def verificar_login():
         email = TxtEmail.get("1.0", "end").strip()
         password = TxtPalavraPasse.get("1.0", "end").strip()
@@ -164,19 +219,21 @@ def iniciar_sessao():
         # Verifica se é o admin
         if email == "admin" and password == "admin":
             CTkMessagebox.CTkMessagebox(title="Admin", message="Bem-vindo, Admin!", icon="check", option_1="Ok")
-            app.destroy()
-            os.system("python admin.py")
+            exibir_admin_frame()  # Chama a função para exibir o frame de administração
+            return
 
         lista_users = lerUsers()
         for linha in lista_users:
             campos = linha.strip().split(";")
             if len(campos) >= 2 and campos[0] == email and campos[1] == password:
-                app.destroy()
-                os.system("python users_login.py")
+                CTkMessagebox.CTkMessagebox(title="Sucesso", message="Login realizado com sucesso!", icon="check", option_1="Ok")
+                exibir_user_frame()  # Chama a função para exibir o frame do usuário
+                return
 
         # Se não encontrar usuário válido, exibe mensagem de erro
         CTkMessagebox.CTkMessagebox(title="Erro", message="E-mail ou senha incorretos.", icon="cancel")
 
+    # Frame de login
     frameIniciarSessao = customtkinter.CTkFrame(app, width=1500, height=700, fg_color="#5D0FE5")
     frameIniciarSessao.place(x=0, y=0)
 
@@ -206,14 +263,119 @@ def iniciar_sessao():
                                                width=140, height=50, fg_color="white", text_color="#39098B", corner_radius=11, font=("Inter", 15))
     btnIniciarSessao.place(x=750, y=450)
 
-def abrir_sem_login():
-    """
-    Ao clicar no botão de "Entrar sem conta" a aplicação com a frame "home" é destruída, e abre o ficheiro users_sem_login.py.
-    Esse ficheiro é exclusivo para os usuários sem login/conta na aplicação, e, por conta disso, têm funcionalidades reduzidas.
-    """
-    app.destroy()
-    os.system("python users_sem_login.py")
+    
+    
 
+def abrir_sem_login():
+
+    # Primeiro, destroi qualquer frame existente
+    for widget in app.winfo_children():
+        widget.destroy()
+
+    # Configuração inicial do CustomTkinter
+    customtkinter.set_appearance_mode("dark")  # Modo escuro
+    customtkinter.set_default_color_theme("blue")  # Tema azul
+
+    # Frame base com cor de fundo
+    base_frame = customtkinter.CTkFrame(app, fg_color="#5D0FE5")
+    base_frame.pack(fill="both", expand=True)
+
+    # Título principal
+    main_title_label = customtkinter.CTkLabel(
+        base_frame,
+        text="Big Screen Movies",
+        font=customtkinter.CTkFont(size=24, weight="bold"),
+        text_color="white"
+    )
+    main_title_label.pack(pady=10)
+
+    # Scrollable Frame
+    scrollable_frame = customtkinter.CTkScrollableFrame(base_frame, width=1100, height=600, fg_color="#5D0FE5")
+    scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+    # Função para criar cada filme
+    def create_movie_frame(parent, image_path, title, description, command):
+        frame = customtkinter.CTkFrame(parent, width=200, height=400, corner_radius=15)
+        frame.pack(side="left", padx=10, pady=10)
+        frame.pack_propagate(False)
+
+        image = Image.open(image_path).resize((200, 300))  # Carrega e redimensiona a imagem
+        photo = ImageTk.PhotoImage(image)
+
+        image_label = customtkinter.CTkLabel(frame, image=photo, text="")
+        image_label.image = photo  # Armazena a referência da imagem
+        image_label.pack(pady=(10, 5))
+
+        title_label = customtkinter.CTkLabel(frame, text=title, font=customtkinter.CTkFont(size=18, weight="bold"), text_color="white")
+        title_label.pack(pady=(5, 0))
+
+        description_label = customtkinter.CTkLabel(
+            frame,
+            text=description,
+            font=customtkinter.CTkFont(size=14),
+            wraplength=180,
+            justify="center",
+            text_color="white"
+        )
+        description_label.pack(pady=(5, 10))
+
+        button = customtkinter.CTkButton(frame, text="Assistir agora", command=command)
+        button.pack(pady=5)
+
+        return frame
+
+    # Função para criar seções dinâmicas de filmes
+    def create_movie_section(parent, section_title):
+        # Adiciona o título da seção
+        section_label = customtkinter.CTkLabel(
+            parent,
+            text=section_title,
+            font=customtkinter.CTkFont(size=35, weight="bold"),
+            text_color="white",
+            anchor="w"
+        )
+        section_label.pack(fill="x", pady=(10, 0))
+
+        # Frame da seção
+        section_frame = customtkinter.CTkFrame(parent, fg_color="#5D0FE5")
+        section_frame.pack(fill="x", pady=10)
+
+        return section_frame
+
+    # Criando as seções
+    highlights_frame = create_movie_section(scrollable_frame, "Destaques")
+    recently_added_frame = create_movie_section(scrollable_frame, "Recentemente Adicionados")
+    popular_frame = create_movie_section(scrollable_frame, "Populares")
+
+    # Adicionando filmes na seção "Destaques" 
+    create_movie_frame(highlights_frame, "AED_GRUPO10-Mariana/images/sonic.png", "Sonic - O Filme", "Um ouriço azul veloz enfrenta desafios e inimigos.", lambda: print("Assistindo: Sonic - O Filme"))
+    create_movie_frame(highlights_frame, "AED_GRUPO10-Mariana/images/mariojpg.jpg", "Super Mario Bros", "Mario e Luigi salvam o Reino dos Cogumelos.", lambda: print("Assistindo: Super Mario Bros"))
+    create_movie_frame(highlights_frame, "AED_GRUPO10-Mariana/images/avatar.jpeg", "Avatar", "Uma nova jornada em Pandora cheia de aventuras.", lambda: print("Assistindo: Avatar"))
+    create_movie_frame(highlights_frame, "AED_GRUPO10-Mariana/images/matrix.jpg", "Matrix", "Entre na Matrix e descubra a verdade oculta.", lambda: print("Assistindo: Matrix"))
+    create_movie_frame(highlights_frame, "AED_GRUPO10-Mariana/images/batmanjpg.jpg", "Batman", "O herói sombrio enfrenta o caos em Gotham.", lambda: print("Assistindo: Batman"))
+
+    # Adicionando filmes na seção "Recentemente Adicionados" 
+    create_movie_frame(recently_added_frame, "AED_GRUPO10-Mariana/images/gladiadores.jpg", "Gladiador", "Um general romano busca vingança contra o imperador.", lambda: print("Assistindo: Gladiador"))
+    create_movie_frame(recently_added_frame, "AED_GRUPO10-Mariana/images/frozen.jpg", "Frozen", "Uma princesa embarca numa aventura congelante.", lambda: print("Assistindo: Frozen"))
+    create_movie_frame(recently_added_frame, "AED_GRUPO10-Mariana/images/Interstellarpng.png", "Interestelar", "Uma viagem para além das estrelas.", lambda: print("Assistindo: Interestelar"))
+    create_movie_frame(recently_added_frame, "AED_GRUPO10-Mariana/images/vingadores.jpg", "Os Vingadores", "Os heróis se unem para salvar o mundo.", lambda: print("Assistindo: Os Vingadores"))
+    create_movie_frame(recently_added_frame, "AED_GRUPO10-Mariana/images/Carros.jpg", "Carros", "Um carro de corrida aprende sobre a vida na Rota 66.", lambda: print("Assistindo: Carros"))
+
+    # Adicionando filmes na seção "Populares" (sem listas)
+    create_movie_frame(popular_frame, "AED_GRUPO10-Mariana/images/harrypotter.jpg", "Harry Potter", "A jornada de um jovem bruxo.", lambda: print("Assistindo: Harry Potter"))
+    create_movie_frame(popular_frame, "AED_GRUPO10-Mariana/images/senhordosaneis.jpg", "O Senhor dos Anéis", "Uma missão para destruir o anel.", lambda: print("Assistindo: O Senhor dos Anéis"))
+    create_movie_frame(popular_frame, "AED_GRUPO10-Mariana/images/Spiderman.jpg", "Homem-Aranha", "Um herói aprende a lidar com poderes e responsabilidades.", lambda: print("Assistindo: Homem-Aranha"))
+    create_movie_frame(popular_frame, "AED_GRUPO10-Mariana/images/images.jpg", "Pantera Negra", "Um herói defende sua nação e legado.", lambda: print("Assistindo: Pantera Negra"))
+    create_movie_frame(popular_frame, "AED_GRUPO10-Mariana/images/MulherMaravilha.jpg", "Mulher Maravilha", "A origem de uma poderosa guerreira.", lambda: print("Assistindo: Mulher Maravilha"))
+
+    # Função para ajustar o scroll suave
+    def smooth_scroll(event):
+        scrollable_frame._scroll_canvas.yview_scroll(-1 * int(event.delta / 120), "units")
+
+    # Vincular o evento de rolagem do mouse ao frame scrollable
+    scrollable_frame.bind("<MouseWheel>", smooth_scroll)
+
+   
 
 # -----Arranque da aplicação --------------------------------
 # INTERFACE GRAFICA DA APLICAÇÃO 

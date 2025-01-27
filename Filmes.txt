@@ -1,0 +1,13 @@
+Sonic- O Filme;2024;Um ouriço azul veloz enfrenta desafios e inimigos;C:\Users\Quincas\Downloads\AED_Grupo10-Mariana\AED_Grupo10-Mariana\Videos\Sonic.mp4
+Super Mario Bros;2023; Mario e Luigi salvam o Reino dos Cogumelos.
+Avatar;2022;Uma nova jornada em Pandora cheia de aventura.
+Batman;2022;O herói sombrio enfrenta o caos em Gotham.
+Gladioadores;2024;Um general romano busca vingança contra o imperador.
+Frozen;2013;Uma princesa embarca numa aventura congelante.
+interstelar;2014;Uma viagem para além das estrelas.
+Os Vingadores;2012;Os heróis se unem para salvar o mundo.
+Carros;2006;Um carro de corrida aprende sobre a vida na Rota 66.
+Harry Potter;2001;A jornada de um jovem bruxo.
+Homem-Aranha;2017;Um herói aprende a lidar com poderes e responsabilidades.
+Pantera Negra;2018;Um herói defende sua nação e legado
+Mulher Maravilha;2017;A origem de uma poderosa guerreira
